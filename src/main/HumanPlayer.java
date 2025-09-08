@@ -12,21 +12,35 @@ public class HumanPlayer extends Player {
 
     @Override
     public Move nextMove(Board board) {
+        int n = board.size() * board.size();
+
         while (true) {
-            System.out.print(mark + " enter row and col (0-" + (board.size()-1) + "): ");
+            System.out.print(mark + " choose a cell [1-" + n + "]: ");
             String line = in.nextLine().trim();
-            String[] parts = line.split("\\s+");
-            if (parts.length != 2) {
-                System.out.println("Please enter two integers.");
+
+            int num;
+            try {
+                num = Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number between 1 and " + n + ".");
                 continue;
             }
-            try {
-                int r = Integer.parseInt(parts[0]);
-                int c = Integer.parseInt(parts[1]);
-                return new Move(r, c, mark);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid numbers. Try again.");
+
+            if (num < 1 || num > n) {
+                System.out.println("Out of range. Try 1.." + n + ".");
+                continue;
             }
+
+            int idx = num - 1;
+            int r = idx / board.size();
+            int c = idx % board.size();
+
+            if (board.getCell(r, c) != Mark.EMPTY) {
+                System.out.println("That cell is already taken. Try again.");
+                continue;
+            }
+
+            return new Move(r, c, mark);
         }
     }
 }

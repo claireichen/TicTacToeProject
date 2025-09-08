@@ -19,11 +19,13 @@ public class Game {
             Optional<Mark> w = board.winner();
             if (w.isPresent()) {
                 System.out.println("Winner: " + w.get());
-                printBoard(); return;
+                printBoard();
+                return;
             }
             if (board.isFull()) {
                 System.out.println("Draw!");
-                printBoard(); return;
+                printBoard();
+                return;
             }
 
             Move mv = current.nextMove(board);
@@ -32,25 +34,43 @@ public class Game {
                 swapPlayers();
             } catch (IllegalArgumentException ex) {
                 System.out.println("Invalid move: " + ex.getMessage());
-                // same current player tries again
+                // same player tries again
             }
         }
     }
 
     private void swapPlayers() { Player tmp = current; current = other; other = tmp; }
 
+    /** Prints empty cells as 1..N*N, aligned for any board size. */
     private void printBoard() {
         int n = board.size();
+        int maxNum = n * n;
+        int width = Integer.toString(maxNum).length(); // width for alignment
+
         System.out.println();
         for (int r = 0; r < n; r++) {
             StringBuilder sb = new StringBuilder();
             for (int c = 0; c < n; c++) {
                 Mark m = board.getCell(r, c);
-                sb.append(switch (m) { case X -> "X"; case O -> "O"; default -> "."; });
+                String cell;
+                if (m == Mark.EMPTY) {
+                    int cellNum = r * n + c + 1;
+                    cell = String.format("%" + width + "d", cellNum);
+                } else {
+                    String symbol = (m == Mark.X) ? "X" : "O";
+                    cell = String.format("%" + width + "s", symbol);
+                }
+                sb.append(cell);
                 if (c < n - 1) sb.append(" | ");
             }
             System.out.println(sb);
-            if (r < n - 1) System.out.println("--+".repeat(n-1) + "--");
+
+            if (r < n - 1) {
+                // separator like ---+---+--- with dynamic width
+                String seg = "-".repeat(width);
+                String sep = (seg + "-+-").repeat(n - 1) + seg;
+                System.out.println(sep);
+            }
         }
         System.out.println("Turn: " + board.currentTurn());
         System.out.println();
