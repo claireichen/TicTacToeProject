@@ -6,7 +6,7 @@
 2. Run the file named "ConsoleApp.java" to start!
 
 ## Design Rationale 
-This project follows the CS 3560 emphasis on encapsulation, inheritance/polymorphism, and MVC-style separation. The aim is a small, testable core with clear APIs so each part does one job well and the game loop coordinates them. This keeps rules centralized, reduces bugs, and makes swapping UIs or AIs trivial without touching core logic. 
+This project follows encapsulation, inheritance/polymorphism, and MVC-style separation. The aim is a small, testable core with clear APIs so each part does one job well and the game loop coordinates them. This keeps rules centralized, reduces bugs, and makes swapping UIs or AIs trivial without touching core logic. 
 
 Single Responsibility (SRP)
 
@@ -54,6 +54,7 @@ New AIs (Random/Smart) or extra features (undo) plug in without changing the mod
   <img width="983" height="264" alt="Screenshot 2025-09-15 at 9 41 05 PM" src="https://github.com/user-attachments/assets/e68be06a-f477-44fb-88ca-5e7efd2907bc" />
 - GameTest
   <img width="1072" height="141" alt="Screenshot 2025-09-15 at 9 41 56 PM" src="https://github.com/user-attachments/assets/f7e94b79-23fc-45bb-97ff-7b99391740f4" />
+
 
 
 
