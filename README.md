@@ -5,7 +5,32 @@
 1. Click the Green Code Button and Clone using the web URL in your IDE of choice
 2. Run the file named "ConsoleApp.java" to start!
 
-## Design Rationale
+## Design Rationale 
+This project follows the CS 3560 emphasis on encapsulation, inheritance/polymorphism, and MVC-style separation. The aim is a small, testable core with clear APIs so each part does one job well and the game loop coordinates them. This keeps rules centralized, reduces bugs, and makes swapping UIs or AIs trivial without touching core logic. 
+
+Single Responsibility (SRP)
+
+Board – owns rules & state; validates moves.
+
+Player (+ subclasses) – chooses a move.
+
+Game – orchestrates turns, applies moves, checks win/draw.
+
+ConsoleApp – user I/O only.
+
+Encapsulation & Abstraction
+Grid and turn are private; interaction only via place(), winner(), getCell().
+
+Polymorphism
+Game depends on the abstract Player and calls nextMove(Board)—human or AI is interchangeable.
+
+Interface Segregation
+Clients use only what they need; Player exposes just nextMove(Board).
+
+Extensibility
+New AIs (Random/Smart) or extra features (undo) plug in without changing the model.
+
+## Reflection
 - Where did encapsulation prevent bugs?
   - Centralized validation in Board.place(...) (bounds, empty cell, correct turn) stopped illegal moves before they touched state, avoiding duplicated checks across UI/AI.
   - Private grid + no setters meant nothing outside Board could overwrite cells or skip turn logic; read-only access goes through getCell(r,c).
@@ -26,4 +51,5 @@
 
 ## Test Results
 - (Placeholder)
+
 
