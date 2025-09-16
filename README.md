@@ -50,6 +50,11 @@ New AIs (Random/Smart) or extra features (undo) plug in without changing the mod
 ![alt text](UMLDiagram.png "UML Diagram")
 
 ## Test Results
-- (Placeholder)
+- BoardTest
+  <img width="983" height="264" alt="Screenshot 2025-09-15 at 9 41 05 PM" src="https://github.com/user-attachments/assets/e68be06a-f477-44fb-88ca-5e7efd2907bc" />
+- GameTest
+  <img width="1072" height="141" alt="Screenshot 2025-09-15 at 9 41 56 PM" src="https://github.com/user-attachments/assets/f7e94b79-23fc-45bb-97ff-7b99391740f4" />
+
+
 
 
