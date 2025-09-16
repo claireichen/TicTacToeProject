@@ -28,10 +28,24 @@ public class Game {
                 return;
             }
 
-            Move mv = current.nextMove(board);
             try {
+                Move mv = current.nextMove(board);
                 board.place(mv);
-                swapPlayers();
+                swapPlayers(); // normal advance
+            } catch (Undo ur) {
+                int requested = ur.count();
+                int undone = 0;
+                for (int i = 0; i < requested; i++) {
+                    if (!board.canUndo()) {
+                        if (undone == 0) System.out.println("Nothing to undo.");
+                        break;
+                    }
+                    board.undo();     // flips Board's turn
+                    swapPlayers();    // keep Game's current/other aligned with Board
+                    undone++;
+                }
+                if (undone > 0) System.out.println("Undid " + undone + " move" + (undone > 1 ? "s" : "") + ".");
+                // loop continues with updated state/turn
             } catch (IllegalArgumentException ex) {
                 System.out.println("Invalid move: " + ex.getMessage());
                 // same player tries again
@@ -73,6 +87,7 @@ public class Game {
             }
         }
         System.out.println("Turn: " + board.currentTurn());
+        System.out.println("(enter a cell number, or 'u' / 'undo [n]' to undo)");
         System.out.println();
     }
 }

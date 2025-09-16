@@ -18,6 +18,12 @@ public class HumanPlayer extends Player {
             System.out.print(mark + " choose a cell [1-" + n + "]: ");
             String line = in.nextLine().trim();
 
+            if (line.startsWith("u")) {
+                int count = 1;
+                String digits = line.replaceAll("[^0-9]", "");
+                if (!digits.isEmpty()) count = Integer.parseInt(digits);
+                throw new Undo(count);
+            }
             int num;
             try {
                 num = Integer.parseInt(line);
